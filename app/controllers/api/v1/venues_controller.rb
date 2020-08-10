@@ -1,4 +1,4 @@
-class Api::V1::VenuesController < ApplicationController
+class Api::V1::VenuesController < ApiController
   before_action :set_venue
   def show
 

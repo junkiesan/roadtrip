@@ -4,6 +4,10 @@
 require 'open-uri'
 require 'nokogiri'
 
+# def department_url(department)
+#   "https://www.google.com/search?q=#{department}"
+# end
+
 chevreuse = Venue.create(name: "Chevreuse")
 
 department = 'yvelines'
@@ -12,11 +16,15 @@ url = "https://www.google.com/search?q=#{department}"
 html_file = open(url).read
 html_doc = Nokogiri::HTML(html_file)
 
-html_doc.search('.vk_c gws-trips__outer-card g').each do |element|
-  puts element.text.strip
-  puts element.attribute('href').value
+html_doc.css('.vk_c gws-trips__outer-card g > gRTukd T2uyV > gRTukd pa72cd').each do |element|
+    venue = Venue.new(
+    name: element['gRTukd T2uyV'],
+    address: element["url"],
+    category: element['gRTukd pa72cd']
+  )
 end
 
+# venue[:name]      = vehicle.css('h2.listing-row__title')
 # COUNTRIES = ['France'] # => Add Countries
 # DEPARTMENTS = ['Yvelines', 'Parc', 'Plage', 'Monument'] # => Add Categories
 # CITIES.each do |city|
